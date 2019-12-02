@@ -1,4 +1,4 @@
-# CTRL-T PoC
+# CTRL-T PoC ![CI](https://github.com/codenotary/ctrlt/workflows/CI/badge.svg)
 This is a rough (evolutionary) PoC for CTRL-T with heavy focus
 on direct Docker integration built on top of immudb. It ships with 2 binaries:
 
