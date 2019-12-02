@@ -49,5 +49,7 @@ run:
 
 clean:
 	$(RM) ctrlt cn
+	$(GO) clean ./...
+	$(GO) clean -testcache
 
 .PHONY: all ctrlt cnt ctrlt-static cn-static test integration-test get vendor tidy run clean
