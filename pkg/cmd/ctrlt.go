@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/spf13/cobra"
 
@@ -20,11 +22,16 @@ func NewCtrlTCmd() *cobra.Command {
 			if err := di.Initialize(); err != nil {
 				util.Die("initializing failed:", err)
 			}
-		},
-		PersistentPostRun: func(cmd *cobra.Command, args []string) {
-			if err := di.Terminate(); err != nil {
-				util.Die("termination failed:", err)
-			}
+			signalChan := make(chan os.Signal)
+			go func() {
+				<-signalChan
+				if err := di.Terminate(); err != nil {
+					util.Die("termination failed:", err)
+				} else {
+					os.Exit(0)
+				}
+			}()
+			signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			addr := os.Getenv("CTRLT_ADDRESS")
