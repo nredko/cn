@@ -11,5 +11,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build
         run: make -j all
-      - name: Test
+      - name: Unit Test
         run: make -j test
+      - name: Integration Test
+        run: make -j integration-test
