@@ -1,0 +1,12 @@
+*.exe
+*.exe~
+*.iml
+*.swp
+*.ipr
+*.iws
+.DS_Store
+.idea/
+.vscode/
+/ctrlt
+/cn
+/vendor

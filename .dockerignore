@@ -1,0 +1,16 @@
+*.iml
+*.ipr
+*.iws
+*.swp
+.dockerignore
+.DS_Store
+.editorconfig
+.git/
+.gitignore
+.idea/
+/cn
+/ctrlt
+/vendor
+docker-compose.yml
+Dockerfile
+README.md
