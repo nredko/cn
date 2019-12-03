@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   immudb:
-    image: "ameingast/immudb"
+    image: "codenotary/immudb"
     container_name: "immudb"
     restart: "on-failure"
     ports:
@@ -15,7 +15,7 @@ services:
       - "immudb:/immudb"
   ctrlt:
     build: "."
-    image: "ameingast/ctrlt"
+    image: "codenotary/ctrlt"
     container_name: "ctrlt"
     restart: "on-failure"
     depends_on:
