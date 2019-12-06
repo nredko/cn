@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/immudb/pkg/server"
 	"github.com/stretchr/testify/assert"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
@@ -62,16 +63,15 @@ var _ = (func() interface{} {
 })()
 
 func TestMain(m *testing.M) {
-	go func() {
-		if err := util.NewImmuDB(); err != nil {
-			panic(err)
+	var code int
+	if err := util.WithImmuServer(func(immuServer *server.ImmuServer) error {
+		if err := di.Initialize(); err != nil {
+			return err
+		} else {
+			code = m.Run()
+			return di.Terminate()
 		}
-	}()
-	if err := di.Initialize(); err != nil {
-		panic(err)
-	}
-	code := m.Run()
-	if err := di.Terminate(); err != nil {
+	}); err != nil {
 		panic(err)
 	}
 	os.Exit(code)

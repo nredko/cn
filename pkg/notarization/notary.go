@@ -9,5 +9,6 @@ type Notary interface {
 	Notarize(hash string, status string) (*persistence.Notarization, error)
 	NotarizeImageWithName(name string, status string) (*persistence.Notarization, error)
 	GetNotarizationForHash(hash string) (*persistence.Notarization, error)
+	GetNotarizationHistoryForHash(hash string) ([]*persistence.Notarization, error)
 	GetFirstNotarizationMatchingName(name string) (*persistence.Notarization, error)
 }

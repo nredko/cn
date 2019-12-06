@@ -2,25 +2,25 @@ const NotarizationBadgeComponent = {
   template: `
 <h4>
   <span
-    v-if='image.Notarization.Status === "Notarized"'
+    v-if='notarization.Status === "Notarized"'
     class='badge badge-pill badge-success'>
     Notarized
   </span>
   <span
-    v-if='image.Notarization.Status === "Untrusted"'
+    v-if='notarization.Status === "Untrusted"'
     class='badge badge-pill badge-danger'>
     Un-trusted
   </span>
   <span
-    v-if='image.Notarization.Status === "Unknown"'
+    v-if='notarization.Status === "Unknown"'
     class='badge badge-pill badge-warning'>
     Unknown
   </span>
 </h4>`,
-  props: ['image'],
+  props: ['notarization'],
   data: function () {
     return {
-      image: {},
+      notarization: {},
     }
   }
 };

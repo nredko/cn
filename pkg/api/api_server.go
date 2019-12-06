@@ -35,6 +35,7 @@ func NewApiServer() (Server, error) {
 
 func (s *apiServer) Start() error {
 	http.HandleFunc("/containers", s.listContainers)
+	http.HandleFunc("/history", s.containerHistory)
 	http.HandleFunc("/notarize", s.notarize)
 	http.HandleFunc("/bulk-notarize", s.bulkNotarize)
 	http.HandleFunc("/health", s.healthCheck)
@@ -111,6 +112,26 @@ func (s *apiServer) healthCheck(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode("ok"); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		s.logger.Errorf("unable to encode json: %v", err)
+		return
+	}
+}
+
+func (s *apiServer) containerHistory(w http.ResponseWriter, r *http.Request) {
+	hash := r.URL.Query().Get("hash")
+	w.Header().Set("Content-Type", "application/json")
+	if hash == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		s.logger.Warningf("hash parameter missing")
+		return
+	}
+	notarizationHistory, err := s.notary.GetNotarizationHistoryForHash(hash)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		s.logger.Errorf("notarization failed: %v", err)
+		return
+	}
+	if err := json.NewEncoder(w).Encode(notarizationHistory); err != nil {
 		s.logger.Errorf("unable to encode json: %v", err)
 		return
 	}

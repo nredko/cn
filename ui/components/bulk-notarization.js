@@ -4,14 +4,14 @@ const BulkNotarizationComponent = {
   props: ['filter'],
   template: `
 <div>
-	<button 
+	<button
 	  type='button'
     role='button'
 		class='btn btn-outline-primary'
 		v-on:click='bulkNotarize()'>
 		Bulk Notarize
 	</button>
-	<button 
+	<button
 	  type='button'
 		role='button'
 		class='btn btn-outline-danger'

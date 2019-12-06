@@ -91,6 +91,10 @@ func (n *dockerNotary) GetNotarizationForHash(hash string) (*persistence.Notariz
 	return n.repository.GetNotarizationForHash(hash)
 }
 
+func (n *dockerNotary) GetNotarizationHistoryForHash(hash string) ([]*persistence.Notarization, error) {
+	return n.repository.GetNotarizationHistoryForHash(hash)
+}
+
 func (n *dockerNotary) GetFirstNotarizationMatchingName(name string) (*persistence.Notarization, error) {
 	image, err := n.dockerClient.ImageForName(name)
 	if err != nil {

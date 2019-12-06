@@ -1,53 +1,72 @@
 import {NotarizationBadgeComponent} from "./notarization-badge.js";
 import {NotarizationButtonComponent} from "./notarization-button.js";
+import {NotarizationHistoryComponent} from "./notarization-history.js";
 
 const NotarizationTableComponent = {
   template: `
-<table 
+<table
   class='table'>
-  <thead 
-    class='borderless' 
+  <thead
+    class='borderless'
     style='border-top: hidden;'>
   <tr>
-  	<th 
+    <th></th>
+	<th
   	  scope='col'>
   	  Docker Image
   	</th>
-  	<th 
+	<th
   	  scope='col'>
   	  Notarization Status
   	</th>
   </tr>
   </thead>
-  <tbody 
+  <tbody
     id='notarization-table'>
-  <tr 
+  <tr
     v-for='image of images'>
   	<td>
   	  <h4>{{ image.Image.Name }}</h4>
   	</td>
   	<td>
-  		<notarizationBadge 
-  		  v-bind:image='image'>
+	  <notarizationHistory
+	    v-if='histories[image.Image.Hash]'
+	    v-bind:notarizations='histories[image.Image.Hash]'>
+      </notarizationHistory>
+		<notarizationBadge
+		  v-if='!histories[image.Image.Hash]'
+		  v-bind:notarization='image.Notarization'>
       </notarizationBadge>
   	</td>
   	<td>
-      <notarizationButton 
-        v-bind:image='image' 
+      <notarizationButton
+        v-bind:image='image'
         v-on='$listeners'>
        </notarizationButton>
   	</td>
+	 <td>
+      <button
+        role='button'
+	    type='button'
+	    class='btn btn-outline-primary'
+        v-on:click='toggleHistory(image)'>
+        Toggle History
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>`,
   components: {
     notarizationBadge: NotarizationBadgeComponent,
-    notarizationButton: NotarizationButtonComponent
+    notarizationButton: NotarizationButtonComponent,
+    notarizationHistory: NotarizationHistoryComponent,
   },
-  props: ['images'],
-  data: () => ({
-    images: [],
-  }),
+  props: ['images', 'histories'],
+  methods: {
+    toggleHistory: function (image) {
+      this.$emit("toggle-history", image);
+    }
+  }
 };
 
 export {NotarizationTableComponent};

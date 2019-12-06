@@ -7,17 +7,19 @@ import {ConfigurationService} from "../service/configuration.js";
 const ContainerComponent = {
   template: `
 <div>
-  <loading 
+  <loading
     v-if='!initialized'>
-  </loading> 
-  <div 
-    v-if='initialized' 
+  </loading>
+  <div
+    v-if='initialized'
     class='container'>
-	  <notarizationTable 
-	    v-bind:images='images' 
-	    v-on:refresh='refresh'>
+	  <notarizationTable
+	    v-bind:images='images'
+	    v-bind:histories='histories'
+	    v-on:refresh='refresh'
+	    v-on:toggle-history='toggleHistory'>
     </notarizationTable>
-    <bulkNotarization 
+    <bulkNotarization
       v-bind:filter='filter'
       v-on:refresh='refresh'>
     </bulkNotarization>
@@ -26,6 +28,7 @@ const ContainerComponent = {
   data: () => ({
     filter: '',
     images: [],
+    histories: {},
     initialized: false,
   }),
   mounted: function () {
@@ -49,7 +52,10 @@ const ContainerComponent = {
     refresh: function (callback) {
       const self = this;
       NotarizationService.fetch(self.filter, function (images) {
-        self.images = images;
+        if (JSON.stringify(self.images) !== JSON.stringify(images)) {
+          self.images = images;
+          self.histories = {};
+        }
         if (callback) {
           callback();
         }
@@ -58,7 +64,18 @@ const ContainerComponent = {
     search: function (text) {
       this.filter = text;
       this.refresh();
-    }
+    },
+    toggleHistory: function (image) {
+      const self = this;
+      if (this.histories[image.Image.Hash]) {
+        this.histories = {};
+      } else {
+        NotarizationService.history(image.Image.Hash, function (history) {
+          self.histories = {};
+          self.histories[image.Image.Hash] = history;
+        })
+      }
+    },
   },
 };
 

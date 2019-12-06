@@ -53,6 +53,24 @@ func (r *immuNotarizationRepository) GetNotarizationForHash(hash string) (*Notar
 	}, nil
 }
 
+func (r *immuNotarizationRepository) GetNotarizationHistoryForHash(hash string) ([]*Notarization, error) {
+	response, err := r.immuClient.History(bytes.NewReader([]byte(hash)))
+	if err != nil {
+		return nil, err
+	}
+	r.logger.Debugf("history %s - %v", hash, response.Items)
+	var notarizations []*Notarization
+	for _, item := range response.Items {
+		status := string(item.Value)
+		notarizations = append(notarizations, &Notarization{
+			Hash:   hash,
+			Status: status,
+			Index:  item.Index,
+		})
+	}
+	return notarizations, nil
+}
+
 func (r *immuNotarizationRepository) GetNotarizationsForHashes(hashes []string) ([]Notarization, error) {
 	var readers []io.Reader
 	for _, hash := range hashes {
