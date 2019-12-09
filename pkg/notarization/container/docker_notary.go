@@ -16,7 +16,7 @@ type dockerNotary struct {
 	repository   persistence.NotarizationRepository
 }
 
-func NewDockerNotary() (Notary, error) {
+func NewDockerNotary() (ContainerNotary, error) {
 	dockerClient, err := di.Lookup(constants.DockerClient)
 	if err != nil {
 		return nil, err

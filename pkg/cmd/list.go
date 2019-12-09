@@ -19,7 +19,7 @@ func NewListCmd(output *string) *cobra.Command {
 		Aliases: []string{"l"},
 		Args:    cobra.ExactArgs(0),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(Notary).(notarization.Notary)
+			notary := di.LookupOrPanic(Notary).(notarization.ContainerNotary)
 			notarizedImages, err := notary.ListNotarizedImages(query)
 			if err != nil {
 				util.Die("listing failed:", err)

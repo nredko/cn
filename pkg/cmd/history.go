@@ -18,7 +18,7 @@ func NewHistoryCmd(output *string) *cobra.Command {
 		Aliases: []string{"h"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(Notary).(notarization.Notary)
+			notary := di.LookupOrPanic(Notary).(notarization.ContainerNotary)
 			notarizedImage, err := notary.GetFirstNotarizationMatchingName(args[0])
 			if err != nil {
 				util.Die("notarization failed:", err)

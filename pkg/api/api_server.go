@@ -14,7 +14,7 @@ import (
 
 type apiServer struct {
 	logger logger.Logger
-	notary notarization.Notary
+	notary notarization.ContainerNotary
 }
 
 func NewApiServer() (Server, error) {
@@ -28,7 +28,7 @@ func NewApiServer() (Server, error) {
 	}
 	server := &apiServer{
 		logger: log.(logger.Logger),
-		notary: notary.(notarization.Notary),
+		notary: notary.(notarization.ContainerNotary),
 	}
 	return server, nil
 }

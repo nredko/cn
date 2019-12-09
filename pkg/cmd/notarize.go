@@ -18,7 +18,7 @@ func NewNotarizeCmd(output *string) *cobra.Command {
 		Aliases: []string{"n"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(Notary).(notarization.Notary)
+			notary := di.LookupOrPanic(Notary).(notarization.ContainerNotary)
 			result, err := notary.NotarizeImageWithName(args[0], Notarized)
 			if err != nil {
 				util.Die("notarization failed:", err)
