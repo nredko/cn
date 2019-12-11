@@ -1,4 +1,4 @@
-package persistence
+package notary
 
 import (
 	"bytes"
@@ -11,12 +11,12 @@ import (
 	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
-type immuNotarizationRepository struct {
+type immuNotary struct {
 	logger     logger.Logger
 	immuClient *client.ImmuClient
 }
 
-func NewImmuNotarizationRepository() (NotarizationRepository, error) {
+func NewImmuNotary() (Notary, error) {
 	log, err := di.Lookup(constants.Logger)
 	if err != nil {
 		return nil, err
@@ -25,21 +25,21 @@ func NewImmuNotarizationRepository() (NotarizationRepository, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &immuNotarizationRepository{
+	return &immuNotary{
 		logger:     log.(logger.Logger),
 		immuClient: immuClient.(*client.ImmuClient),
 	}, nil
 }
 
-func (r *immuNotarizationRepository) Start() error {
+func (r *immuNotary) Start() error {
 	return r.immuClient.Connect()
 }
 
-func (r *immuNotarizationRepository) Stop() error {
+func (r *immuNotary) Stop() error {
 	return r.immuClient.Disconnect()
 }
 
-func (r *immuNotarizationRepository) GetNotarizationForHash(hash string) (*Notarization, error) {
+func (r *immuNotary) Authenticate(hash string) (*Notarization, error) {
 	response, err := r.immuClient.Get(bytes.NewReader([]byte(hash)))
 	if err != nil {
 		return UnknownNotarization, nil
@@ -53,7 +53,7 @@ func (r *immuNotarizationRepository) GetNotarizationForHash(hash string) (*Notar
 	}, nil
 }
 
-func (r *immuNotarizationRepository) GetNotarizationHistoryForHash(hash string) ([]*Notarization, error) {
+func (r *immuNotary) History(hash string) ([]*Notarization, error) {
 	response, err := r.immuClient.History(bytes.NewReader([]byte(hash)))
 	if err != nil {
 		return nil, err
@@ -71,7 +71,7 @@ func (r *immuNotarizationRepository) GetNotarizationHistoryForHash(hash string) 
 	return notarizations, nil
 }
 
-func (r *immuNotarizationRepository) GetNotarizationsForHashes(hashes []string) ([]Notarization, error) {
+func (r *immuNotary) AuthenticateBatch(hashes []string) ([]Notarization, error) {
 	var readers []io.Reader
 	for _, hash := range hashes {
 		readers = append(readers, bytes.NewReader([]byte(hash)))
@@ -96,7 +96,7 @@ func (r *immuNotarizationRepository) GetNotarizationsForHashes(hashes []string) 
 	return notarizations, nil
 }
 
-func (r *immuNotarizationRepository) CreateNotarization(hash string, status string) (*Notarization, error) {
+func (r *immuNotary) Notarize(hash string, status string) (*Notarization, error) {
 	key := bytes.NewReader([]byte(hash))
 	value := bytes.NewReader([]byte(status))
 	response, err := r.immuClient.Set(key, value)

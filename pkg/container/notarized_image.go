@@ -1,15 +1,15 @@
-package notarization
+package container
 
 import (
 	"fmt"
 
 	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/persistence"
+	"github.com/codenotary/ctrlt/pkg/notary"
 )
 
 type NotarizedImage struct {
 	Image        docker.Image
-	Notarization persistence.Notarization
+	Notarization notary.Notarization
 }
 
 func (n NotarizedImage) String() string {

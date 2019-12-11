@@ -1,4 +1,4 @@
-package notarization
+package container
 
 import (
 	"regexp"
@@ -7,13 +7,13 @@ import (
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
 	"github.com/codenotary/ctrlt/pkg/logger"
-	"github.com/codenotary/ctrlt/pkg/persistence"
+	"github.com/codenotary/ctrlt/pkg/notary"
 )
 
 type dockerNotary struct {
 	logger       logger.Logger
 	dockerClient docker.Client
-	repository   persistence.NotarizationRepository
+	notary       notary.Notary
 }
 
 func NewDockerNotary() (ContainerNotary, error) {
@@ -21,7 +21,7 @@ func NewDockerNotary() (ContainerNotary, error) {
 	if err != nil {
 		return nil, err
 	}
-	repository, err := di.Lookup(constants.NotarizationRepository)
+	repository, err := di.Lookup(constants.Notary)
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +32,7 @@ func NewDockerNotary() (ContainerNotary, error) {
 	return &dockerNotary{
 		logger:       log.(logger.Logger),
 		dockerClient: dockerClient.(docker.Client),
-		repository:   repository.(persistence.NotarizationRepository),
+		notary:       repository.(notary.Notary),
 	}, nil
 }
 
@@ -55,7 +55,7 @@ func (n *dockerNotary) ListNotarizedImages(query string) ([]NotarizedImage, erro
 	for _, image := range images {
 		hashes = append(hashes, image.Hash)
 	}
-	notarizations, err := n.repository.GetNotarizationsForHashes(hashes)
+	notarizations, err := n.notary.AuthenticateBatch(hashes)
 	if err != nil {
 		return nil, err
 	}
@@ -70,8 +70,8 @@ func (n *dockerNotary) ListNotarizedImages(query string) ([]NotarizedImage, erro
 	return notarizedImages, nil
 }
 
-func (n *dockerNotary) Notarize(hash string, status string) (*persistence.Notarization, error) {
-	notarization, err := n.repository.CreateNotarization(hash, status)
+func (n *dockerNotary) Notarize(hash string, status string) (*notary.Notarization, error) {
+	notarization, err := n.notary.Notarize(hash, status)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (n *dockerNotary) Notarize(hash string, status string) (*persistence.Notari
 	return notarization, nil
 }
 
-func (n *dockerNotary) NotarizeImageWithName(name string, status string) (*persistence.Notarization, error) {
+func (n *dockerNotary) NotarizeImageWithName(name string, status string) (*notary.Notarization, error) {
 	image, err := n.dockerClient.ImageForName(name)
 	if err != nil {
 		return nil, err
@@ -87,15 +87,15 @@ func (n *dockerNotary) NotarizeImageWithName(name string, status string) (*persi
 	return n.Notarize(image.Hash, status)
 }
 
-func (n *dockerNotary) GetNotarizationForHash(hash string) (*persistence.Notarization, error) {
-	return n.repository.GetNotarizationForHash(hash)
+func (n *dockerNotary) GetNotarizationForHash(hash string) (*notary.Notarization, error) {
+	return n.notary.Authenticate(hash)
 }
 
-func (n *dockerNotary) GetNotarizationHistoryForHash(hash string) ([]*persistence.Notarization, error) {
-	return n.repository.GetNotarizationHistoryForHash(hash)
+func (n *dockerNotary) GetNotarizationHistoryForHash(hash string) ([]*notary.Notarization, error) {
+	return n.notary.History(hash)
 }
 
-func (n *dockerNotary) GetFirstNotarizationMatchingName(name string) (*persistence.Notarization, error) {
+func (n *dockerNotary) GetFirstNotarizationMatchingName(name string) (*notary.Notarization, error) {
 	image, err := n.dockerClient.ImageForName(name)
 	if err != nil {
 		return nil, err
