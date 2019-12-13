@@ -7,18 +7,18 @@ import (
 	"os"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
+	"github.com/codenotary/ctrlt/pkg/container"
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/logger"
-	"github.com/codenotary/ctrlt/pkg/notarization"
 )
 
 type apiServer struct {
 	logger logger.Logger
-	notary notarization.Notary
+	notary container.ContainerNotary
 }
 
 func NewApiServer() (Server, error) {
-	notary, err := di.Lookup(constants.Notary)
+	notary, err := di.Lookup(constants.ContainerNotary)
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func NewApiServer() (Server, error) {
 	}
 	server := &apiServer{
 		logger: log.(logger.Logger),
-		notary: notary.(notarization.Notary),
+		notary: notary.(container.ContainerNotary),
 	}
 	return server, nil
 }

@@ -6,11 +6,11 @@ import (
 	"github.com/codenotary/immudb/pkg/client"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
+	"github.com/codenotary/ctrlt/pkg/container"
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
 	"github.com/codenotary/ctrlt/pkg/logger"
-	"github.com/codenotary/ctrlt/pkg/notarization"
-	"github.com/codenotary/ctrlt/pkg/persistence"
+	"github.com/codenotary/ctrlt/pkg/notary"
 	"github.com/codenotary/ctrlt/pkg/printer"
 )
 
@@ -33,9 +33,9 @@ var _ = (func() interface{} {
 			},
 		},
 		di.Entry{
-			Name: NotarizationRepository,
+			Name: Notary,
 			Maker: func() (interface{}, error) {
-				return persistence.NewImmuNotarizationRepository()
+				return notary.NewImmuNotary()
 			}},
 		di.Entry{
 			Name: DockerClient,
@@ -44,9 +44,9 @@ var _ = (func() interface{} {
 			},
 		},
 		di.Entry{
-			Name: Notary,
+			Name: ContainerNotary,
 			Maker: func() (interface{}, error) {
-				return notarization.NewDockerNotary()
+				return container.NewDockerNotary()
 			},
 		},
 		di.Entry{
