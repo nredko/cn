@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"strings"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
@@ -56,5 +57,15 @@ func History(arg string) ([]*notary.Notarization, error) {
 	} else {
 		n := di.LookupOrPanic(FileNotary).(file.FileNotary)
 		return n.History(arg)
+	}
+}
+
+func List(arg string, query string) ([]container.NotarizedImage, error) {
+	if strings.HasPrefix(arg, "docker://") {
+		n := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
+		imageName := strings.ReplaceAll(arg, "docker://", "")
+		return n.ListNotarizedImages(imageName)
+	} else {
+		return nil, errors.New("unsupported schema")
 	}
 }

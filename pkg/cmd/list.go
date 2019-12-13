@@ -5,9 +5,6 @@ import (
 
 	"github.com/spf13/cobra"
 
-	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/printer"
 	"github.com/codenotary/ctrlt/pkg/util"
 )
@@ -17,10 +14,9 @@ func NewListCmd(output *string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "list",
 		Aliases: []string{"l"},
-		Args:    cobra.ExactArgs(0),
+		Args:    cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
-			notarizedImages, err := notary.ListNotarizedImages(query)
+			notarizedImages, err := util.List(args[0], query)
 			if err != nil {
 				util.Die("listing failed:", err)
 			}
