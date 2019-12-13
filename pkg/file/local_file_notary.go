@@ -58,6 +58,19 @@ func (n *LocalFileNotary) Authenticate(path string) (*notary.Notarization, error
 	return notarization, nil
 }
 
+func (n *LocalFileNotary) History(path string) ([]*notary.Notarization, error) {
+	hash, err := n.HashForFile(path)
+	if err != nil {
+		return nil, err
+	}
+	history, err := n.notary.History(hash)
+	if err != nil {
+		return nil, err
+	}
+	n.logger.Debugf("notarization history %s: %v", path, history)
+	return history, nil
+}
+
 func (n *LocalFileNotary) HashForFile(path string) (string, error) {
 	file, err := os.Open(path)
 	if err != nil {

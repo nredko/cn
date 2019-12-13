@@ -7,4 +7,5 @@ import (
 type FileNotary interface {
 	Notarize(path string, status string) (*notary.Notarization, error)
 	Authenticate(path string) (*notary.Notarization, error)
+	History(path string) ([]*notary.Notarization, error)
 }

@@ -39,3 +39,22 @@ func VerifySchema(arg string) (*notary.Notarization, error) {
 		return n.Authenticate(arg)
 	}
 }
+
+func History(arg string) ([]*notary.Notarization, error) {
+	if strings.HasPrefix(arg, "docker://") {
+		n := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
+		imageName := strings.ReplaceAll(arg, "docker://", "")
+		notarizedImage, err := n.GetFirstNotarizationMatchingName(imageName)
+		if err != nil {
+			return nil, err
+		}
+		return n.GetNotarizationHistoryForHash(notarizedImage.Hash)
+	} else if strings.HasPrefix(arg, "file://") {
+		n := di.LookupOrPanic(FileNotary).(file.FileNotary)
+		path := strings.ReplaceAll(arg, "file://", "")
+		return n.History(path)
+	} else {
+		n := di.LookupOrPanic(FileNotary).(file.FileNotary)
+		return n.History(arg)
+	}
+}
