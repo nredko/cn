@@ -13,6 +13,7 @@ import (
 func NewUntrustCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "untrust",
+		Example: "cn untrust file://document.txt, cn untrust docker://alpine",
 		Aliases: []string{"u"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {

@@ -63,8 +63,7 @@ func History(arg string) ([]*notary.Notarization, error) {
 func List(arg string, query string) ([]container.NotarizedImage, error) {
 	if strings.HasPrefix(arg, "docker://") {
 		n := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
-		imageName := strings.ReplaceAll(arg, "docker://", "")
-		return n.ListNotarizedImages(imageName)
+		return n.ListNotarizedImages(query)
 	} else {
 		return nil, errors.New("unsupported schema")
 	}

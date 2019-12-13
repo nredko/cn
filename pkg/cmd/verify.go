@@ -12,6 +12,7 @@ import (
 func NewVerifyCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "verify",
+		Example: "cn verify file://document.txt, cn verify docker://alpine",
 		Aliases: []string{"v"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {

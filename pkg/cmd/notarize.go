@@ -13,6 +13,7 @@ import (
 func NewNotarizeCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "notarize",
+		Example: "cn notarize file://document.txt, cn notarize docker://alpine",
 		Aliases: []string{"n"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
