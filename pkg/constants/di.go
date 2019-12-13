@@ -4,6 +4,7 @@ const (
 	Notary          = "notary"
 	DockerClient    = "dockerClient"
 	ContainerNotary = "containerNotary"
+	FileNotary      = "fileNotary"
 	ApiServer       = "apiServer"
 	UiServer        = "uiServer"
 	Logger          = "logger"
