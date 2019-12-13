@@ -1,7 +1,6 @@
 package util
 
 import (
-	"errors"
 	"strings"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
@@ -21,7 +20,8 @@ func NotarizeSchema(arg string, status string) (*notary.Notarization, error) {
 		path := strings.ReplaceAll(arg, "file://", "")
 		return n.Notarize(path, status)
 	} else {
-		return nil, errors.New("unrecognized notarization schema")
+		n := di.LookupOrPanic(FileNotary).(file.FileNotary)
+		return n.Notarize(arg, status)
 	}
 }
 
@@ -35,6 +35,7 @@ func VerifySchema(arg string) (*notary.Notarization, error) {
 		path := strings.ReplaceAll(arg, "file://", "")
 		return n.Authenticate(path)
 	} else {
-		return nil, errors.New("unrecognized notarization schema")
+		n := di.LookupOrPanic(FileNotary).(file.FileNotary)
+		return n.Authenticate(arg)
 	}
 }
