@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/codenotary/immudb/pkg/server"
+	"github.com/codenotary/immustore/pkg/server"
 )
 
 func WithImmuServer(f func(immuServer *server.ImmuServer) error) error {

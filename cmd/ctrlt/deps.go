@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/immustore/pkg/client"
 
 	"github.com/codenotary/ctrlt/pkg/api"
 	. "github.com/codenotary/ctrlt/pkg/constants"
