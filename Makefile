@@ -43,7 +43,7 @@ tidy:
 	$(GO) mod tidy
 
 run:
-	$(DC) pull immudb
+	$(DC) pull immustore
 	$(DC) up --build --remove-orphans --abort-on-container-exit --exit-code-from ctrlt
 	$(DC) down
 

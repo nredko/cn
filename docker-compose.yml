@@ -1,33 +1,33 @@
 version: "3.7"
 services:
-  immudb:
-    image: "codenotary/immudb"
-    container_name: "immudb"
+  immustore:
+    image: "codenotary/immustore"
+    container_name: "immustore"
     restart: "on-failure"
     ports:
       - "8080:8080"
     environment:
-      IMMUDB_DIR: "/immudb"
-      IMMUDB_ADDRESS: "0.0.0.0"
-      IMMUDB_PORT: "8080"
+      IMMU_DIR: "/immustore"
+      IMMU_ADDRESS: "0.0.0.0"
+      IMMU_PORT: "8080"
       LOG_LEVEL: "debug"
     volumes:
-      - "immudb:/immudb"
+      - "immustore:/immustore"
   ctrlt:
     build: "."
     image: "codenotary/ctrlt"
     container_name: "ctrlt"
     restart: "on-failure"
     depends_on:
-      - "immudb"
+      - "immustore"
     ports:
       - "4040:4040"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     environment:
       CTRLT_ADDRESS: "0.0.0.0:4040"
-      IMMUDB_ADDRESS: "immudb"
-      IMMUDB_PORT: "8080"
+      IMMU_ADDRESS: "immustore"
+      IMMU_PORT: "8080"
       LOG_LEVEL: "debug"
 volumes:
-  immudb:
+  immustore:

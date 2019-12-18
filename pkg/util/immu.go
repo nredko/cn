@@ -8,7 +8,7 @@ import (
 )
 
 func WithImmuServer(f func(immuServer *server.ImmuServer) error) error {
-	tmpDir, err := ioutil.TempDir("", "immudb")
+	tmpDir, err := ioutil.TempDir("", "immustore")
 	if err != nil {
 		return err
 	}
