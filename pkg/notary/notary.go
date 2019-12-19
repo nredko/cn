@@ -1,5 +1,7 @@
 package notary
 
+//go:generate mockgen -source=../notary/notary.go -destination=../mocks/mock_notary.go -package=mocks
+
 type Notary interface {
 	Start() error
 	Notarize(hash string, status string) (*Notarization, error)

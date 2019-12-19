@@ -42,6 +42,9 @@ tidy:
 	$(GO) fmt ./...
 	$(GO) mod tidy
 
+generate:
+	$(GO) generate ./...
+
 run:
 	$(DC) pull immustore
 	$(DC) up --build --remove-orphans --abort-on-container-exit --exit-code-from ctrlt
@@ -52,4 +55,4 @@ clean:
 	$(GO) clean ./...
 	$(GO) clean -testcache
 
-.PHONY: all ctrlt cnt ctrlt-static cn-static test integration-test get vendor tidy run clean
+.PHONY: all ctrlt cnt ctrlt-static cn-static test integration-test get vendor tidy generate run clean

@@ -6,8 +6,6 @@ import (
 	"github.com/spf13/cobra"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/printer"
 	"github.com/codenotary/ctrlt/pkg/util"
 )
@@ -15,11 +13,11 @@ import (
 func NewNotarizeCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "notarize",
+		Example: "cn notarize file://document.txt, cn notarize docker://alpine",
 		Aliases: []string{"n"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
-			result, err := notary.NotarizeImageWithName(args[0], Notarized)
+			result, err := util.NotarizeSchema(args[0], Notarized)
 			if err != nil {
 				util.Die("notarization failed:", err)
 			}

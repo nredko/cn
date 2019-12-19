@@ -6,8 +6,6 @@ import (
 	"github.com/spf13/cobra"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/printer"
 	"github.com/codenotary/ctrlt/pkg/util"
 )
@@ -15,11 +13,11 @@ import (
 func NewUntrustCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "untrust",
+		Example: "cn untrust file://document.txt, cn untrust docker://alpine",
 		Aliases: []string{"u"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
-			result, err := notary.NotarizeImageWithName(args[0], Untrusted)
+			result, err := util.NotarizeSchema(args[0], Untrusted)
 			if err != nil {
 				util.Die("notarization failed:", err)
 			}

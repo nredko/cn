@@ -5,22 +5,20 @@ import (
 
 	"github.com/spf13/cobra"
 
-	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/printer"
 	"github.com/codenotary/ctrlt/pkg/util"
 )
 
 func NewListCmd(output *string) *cobra.Command {
 	var query string
+	var schema string
 	cmd := &cobra.Command{
 		Use:     "list",
 		Aliases: []string{"l"},
+		Example: "cn list -q alpine -s docker://",
 		Args:    cobra.ExactArgs(0),
 		Run: func(cmd *cobra.Command, args []string) {
-			notary := di.LookupOrPanic(ContainerNotary).(container.ContainerNotary)
-			notarizedImages, err := notary.ListNotarizedImages(query)
+			notarizedImages, err := util.List(schema, query)
 			if err != nil {
 				util.Die("listing failed:", err)
 			}
@@ -30,5 +28,6 @@ func NewListCmd(output *string) *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVarP(&query, "query", "q", "", "query")
+	cmd.Flags().StringVarP(&schema, "schema", "s", "docker://", "query")
 	return cmd
 }
