@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
-	github.com/codenotary/immustore v0.0.0-20191218095531-cae6850694e1
+	github.com/codenotary/immudb v0.0.0-20200102144051-b6663d7ad753
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/go-connections v0.4.0 // indirect

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/codenotary/immustore/pkg/client"
+	"github.com/codenotary/immudb/pkg/client"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"

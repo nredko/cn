@@ -46,7 +46,7 @@ generate:
 	$(GO) generate ./...
 
 run:
-	$(DC) pull immustore
+	$(DC) pull immudb
 	$(DC) up --build --remove-orphans --abort-on-container-exit --exit-code-from ctrlt
 	$(DC) down
 

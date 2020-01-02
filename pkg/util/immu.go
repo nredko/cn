@@ -4,11 +4,11 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/codenotary/immustore/pkg/server"
+	"github.com/codenotary/immudb/pkg/server"
 )
 
 func WithImmuServer(f func(immuServer *server.ImmuServer) error) error {
-	tmpDir, err := ioutil.TempDir("", "immustore")
+	tmpDir, err := ioutil.TempDir("", "immudb")
 	if err != nil {
 		return err
 	}

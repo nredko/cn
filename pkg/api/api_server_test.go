@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/codenotary/immustore/pkg/client"
-	"github.com/codenotary/immustore/pkg/server"
+	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/immudb/pkg/server"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/codenotary/ctrlt/pkg/container"
