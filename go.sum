@@ -24,6 +24,10 @@ github.com/cespare/xxhash/v2 v2.1.0/go.mod h1:dgIUBU3pDso/gPgZ1osOZ0iQf77oPR28Tj
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/codenotary/immudb v0.0.0-20200102144051-b6663d7ad753 h1:fZRTxCKFfDr0VN7FKuQobVwdzTnZ2YkKMt2nPl/S8GE=
 github.com/codenotary/immudb v0.0.0-20200102144051-b6663d7ad753/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
+github.com/codenotary/immudb v0.0.0-20200102151524-149a1aa7ca7b h1:yIDSWSHn4ybfUEzCm0j2uAj6EB29JuJMago1abRqvW4=
+github.com/codenotary/immudb v0.0.0-20200103173032-baad55feea94 h1:I1kCFr8W3+k6RYo4CMT+GzLkG09ZipNGh4J0fPRsMqI=
+github.com/codenotary/immudb v0.0.0-20200103173032-baad55feea94/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
+github.com/codenotary/immudb v0.0.0-20200109112806-c788831d3e1c h1:YJgWpClypOt3gMgKPwTZaFag4DCH25zE7oCkVdpNNbk=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-etcd v2.0.0+incompatible/go.mod h1:Jez6KQU2B/sWsbdaef3ED8NzMklzPG4d5KIOhIy30Tk=
 github.com/coreos/go-semver v0.2.0/go.mod h1:nnelYz7RCh+5ahJtPPxZlU+153eP4D4r3EedlOD2RNk=

@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"io"
 
+	"github.com/codenotary/immudb/pkg/api/schema"
+
 	"github.com/codenotary/immudb/pkg/client"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
@@ -80,18 +82,25 @@ func (r *immuNotary) AuthenticateBatch(hashes []string) ([]Notarization, error) 
 	if err != nil {
 		return nil, err
 	}
+	itemByHash := make(map[string]*schema.Item, len(hashes))
+	for _, item := range batchResponse.Items {
+		hash := string(item.Key)
+		itemByHash[hash] = item
+	}
+
 	var notarizations []Notarization
-	for i, response := range batchResponse.GetResponses {
-		if len(response.Value) == 0 {
-			notarizations = append(notarizations, *UnknownNotarization)
-		} else {
+	for _, hash := range hashes {
+		if item, ok := itemByHash[hash]; ok {
 			notarizations = append(notarizations, Notarization{
-				Hash:   hashes[i],
-				Status: string(response.Value),
-				Index:  response.Index,
+				Hash:   hash,
+				Status: string(item.Value),
+				Index:  item.Index,
 			})
+		} else {
+			notarizations = append(notarizations, *UnknownNotarization)
 		}
 	}
+
 	r.logger.Debugf("get-batch %v - %v", hashes, notarizations)
 	return notarizations, nil
 }
