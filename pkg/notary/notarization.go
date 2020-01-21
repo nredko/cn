@@ -20,6 +20,12 @@ var UnknownNotarization = &Notarization{
 	StoreMeta: nil,
 }
 
+type storedNotarization struct {
+	Hash   string
+	Status string
+	Meta   interface{}
+}
+
 func (n Notarization) String() string {
 	return fmt.Sprintf("Hash:%s Status:%s Meta:%+v StoreMeta:%+v",
 		n.Hash, n.Status, n.Meta, n.StoreMeta)
