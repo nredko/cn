@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/codenotary/objects/pkg/object"
 	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/objects/pkg/object"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
@@ -50,7 +50,7 @@ func (r *immuNotary) Authenticate(object *object.Object) (*Notarization, error) 
 	if err = json.Unmarshal(response.Value, &n); err != nil {
 		return nil, err
 	}
-	r.logger.Debugf("get %s - %s @ %v", object.Digest.Encoded(), response.Index, n)
+	r.logger.Debugf("get %s - %d @ %+v", object.Digest.Encoded(), response.Index, n)
 	return &Notarization{
 		Status:    n.Status,
 		Object:    n.Object,
@@ -63,7 +63,7 @@ func (r *immuNotary) History(object *object.Object) ([]*Notarization, error) {
 	if err != nil {
 		return nil, err
 	}
-	r.logger.Debugf("history %s - %v", object.Digest.Encoded(), response.Items)
+	r.logger.Debugf("history %s - %+v", object.Digest.Encoded(), response.Items)
 	var notarizations []*Notarization
 	for _, item := range response.Items {
 		n := storedNotarization{}
@@ -104,7 +104,7 @@ func (r *immuNotary) AuthenticateBatch(objects []*object.Object) ([]Notarization
 			})
 		}
 	}
-	r.logger.Debugf("get-batch %v - %v", objects, notarizations)
+	r.logger.Debugf("get-batch %+v - %+v", objects, notarizations)
 	return notarizations, nil
 }
 
