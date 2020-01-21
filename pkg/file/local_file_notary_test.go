@@ -47,16 +47,16 @@ func TestNotarize(t *testing.T) {
 	mockNotary.EXPECT().
 		Notarize(expectedHash, constants.Notarized).
 		Return(&notary.Notarization{
-			Hash:   expectedHash,
-			Status: constants.Notarized,
-			Index:  expectedIndex,
+			Hash:      expectedHash,
+			Status:    constants.Notarized,
+			StoreMeta: notary.NewStoreMeta(expectedIndex),
 		}, nil).
 		Times(1)
 	notarization, err := fileNotary.Notarize(file.Name(), constants.Notarized)
 	assert.NoError(t, err)
 	assert.Equal(t, notarization.Status, constants.Notarized)
 	assert.Equal(t, notarization.Hash, expectedHash)
-	assert.Equal(t, notarization.Index, expectedIndex)
+	assert.Equal(t, notarization.StoreMeta.(map[string]interface{})["index"], expectedIndex)
 }
 
 func TestAuthenticate(t *testing.T) {
@@ -70,16 +70,16 @@ func TestAuthenticate(t *testing.T) {
 	mockNotary.EXPECT().
 		Authenticate(expectedHash).
 		Return(&notary.Notarization{
-			Hash:   expectedHash,
-			Status: constants.Notarized,
-			Index:  expectedIndex,
+			Hash:      expectedHash,
+			Status:    constants.Notarized,
+			StoreMeta: notary.NewStoreMeta(expectedIndex),
 		}, nil).
 		Times(1)
 	notarization, err := fileNotary.Authenticate(file.Name())
 	assert.NoError(t, err)
 	assert.Equal(t, notarization.Status, constants.Notarized)
 	assert.Equal(t, notarization.Hash, expectedHash)
-	assert.Equal(t, notarization.Index, expectedIndex)
+	assert.Equal(t, notarization.StoreMeta.(map[string]interface{})["index"], expectedIndex)
 }
 
 func TestHistory(t *testing.T) {
@@ -93,9 +93,9 @@ func TestHistory(t *testing.T) {
 	mockNotary.EXPECT().
 		History(expectedHash).
 		Return([]*notary.Notarization{{
-			Hash:   expectedHash,
-			Status: constants.Notarized,
-			Index:  expectedIndex,
+			Hash:      expectedHash,
+			Status:    constants.Notarized,
+			StoreMeta: notary.NewStoreMeta(expectedIndex),
 		}}, nil).
 		Times(1)
 	history, err := fileNotary.History(file.Name())
@@ -103,5 +103,5 @@ func TestHistory(t *testing.T) {
 	assert.Len(t, history, 1)
 	assert.Equal(t, history[0].Status, constants.Notarized)
 	assert.Equal(t, history[0].Hash, expectedHash)
-	assert.Equal(t, history[0].Index, expectedIndex)
+	assert.Equal(t, history[0].StoreMeta.(map[string]interface{})["index"], expectedIndex)
 }

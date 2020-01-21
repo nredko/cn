@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/codenotary/immudb/pkg/api/schema"
-
 	"github.com/codenotary/immudb/pkg/client"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
@@ -49,9 +47,9 @@ func (r *immuNotary) Authenticate(hash string) (*Notarization, error) {
 	status := string(response.Value)
 	r.logger.Debugf("get %s - %s @ %d", hash, response.Index, status)
 	return &Notarization{
-		Hash:   hash,
-		Status: status,
-		Index:  response.Index,
+		Hash:      hash,
+		Status:    status,
+		StoreMeta: NewStoreMeta(response.Index),
 	}, nil
 }
 
@@ -65,9 +63,9 @@ func (r *immuNotary) History(hash string) ([]*Notarization, error) {
 	for _, item := range response.Items {
 		status := string(item.Value)
 		notarizations = append(notarizations, &Notarization{
-			Hash:   hash,
-			Status: status,
-			Index:  item.Index,
+			Hash:      hash,
+			Status:    status,
+			StoreMeta: NewStoreMeta(item.Index),
 		})
 	}
 	return notarizations, nil
@@ -82,25 +80,18 @@ func (r *immuNotary) AuthenticateBatch(hashes []string) ([]Notarization, error) 
 	if err != nil {
 		return nil, err
 	}
-	itemByHash := make(map[string]*schema.Item, len(hashes))
-	for _, item := range batchResponse.Items {
-		hash := string(item.Key)
-		itemByHash[hash] = item
-	}
-
 	var notarizations []Notarization
-	for _, hash := range hashes {
-		if item, ok := itemByHash[hash]; ok {
-			notarizations = append(notarizations, Notarization{
-				Hash:   hash,
-				Status: string(item.Value),
-				Index:  item.Index,
-			})
-		} else {
+	for i, response := range batchResponse.Items {
+		if len(response.Value) == 0 {
 			notarizations = append(notarizations, *UnknownNotarization)
+		} else {
+			notarizations = append(notarizations, Notarization{
+				Hash:      hashes[i],
+				Status:    string(response.Value),
+				StoreMeta: NewStoreMeta(response.Index),
+			})
 		}
 	}
-
 	r.logger.Debugf("get-batch %v - %v", hashes, notarizations)
 	return notarizations, nil
 }
@@ -114,8 +105,14 @@ func (r *immuNotary) Notarize(hash string, status string) (*Notarization, error)
 	}
 	r.logger.Debugf("create %s - %s @ %d", hash, status, response.Index)
 	return &Notarization{
-		Hash:   hash,
-		Status: status,
-		Index:  response.Index,
+		Hash:      hash,
+		Status:    status,
+		StoreMeta: NewStoreMeta(response.Index),
 	}, nil
+}
+
+func NewStoreMeta(index uint64) map[string]interface{} {
+	storeMeta := map[string]interface{}{}
+	storeMeta["index"] = index
+	return storeMeta
 }

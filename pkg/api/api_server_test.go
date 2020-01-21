@@ -91,7 +91,7 @@ func TestListContainersIntegration(t *testing.T) {
 	assert.Equal(t, "application/json", rr.Header().Get("content-type"))
 	assert.JSONEq(t, `[
 			{"Image":{"Name":"name","Hash":"hash"},
-			"Notarization":{"Hash":"","Status":"Unknown","Index":0}}
+			"Notarization":{"Hash":"","Status":"Unknown","Meta":null,"StoreMeta":null}}
 		]`, rr.Body.String())
 }
 

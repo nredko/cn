@@ -7,18 +7,20 @@ import (
 )
 
 type Notarization struct {
-	Hash   string
-	Status string
-	Index  uint64
+	Hash      string
+	Status    string
+	Meta      interface{}
+	StoreMeta interface{}
 }
 
 var UnknownNotarization = &Notarization{
-	Hash:   "",
-	Status: constants.Unknown,
-	Index:  0,
+	Hash:      "",
+	Status:    constants.Unknown,
+	Meta:      nil,
+	StoreMeta: nil,
 }
 
 func (n Notarization) String() string {
-	return fmt.Sprintf("Hash:%s Status:%s Index:%d",
-		n.Hash, n.Status, n.Index)
+	return fmt.Sprintf("Hash:%s Status:%s Meta:%+v StoreMeta:%+v",
+		n.Hash, n.Status, n.Meta, n.StoreMeta)
 }
