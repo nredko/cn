@@ -37,7 +37,7 @@ func (n *LocalFileNotary) Notarize(path string, status string) (*notary.Notariza
 	if err != nil {
 		return nil, err
 	}
-	notarization, err := n.notary.Notarize(hash, status)
+	notarization, err := n.notary.Notarize(hash, status, nil)
 	if err != nil {
 		return nil, err
 	}

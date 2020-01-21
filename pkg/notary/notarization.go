@@ -6,11 +6,15 @@ import (
 	"github.com/codenotary/ctrlt/pkg/constants"
 )
 
+type Meta map[string]interface{}
+
+type StoreMeta map[string]interface{}
+
 type Notarization struct {
 	Hash      string
 	Status    string
-	Meta      interface{}
-	StoreMeta interface{}
+	Meta      Meta
+	StoreMeta StoreMeta
 }
 
 var UnknownNotarization = &Notarization{
@@ -23,7 +27,7 @@ var UnknownNotarization = &Notarization{
 type storedNotarization struct {
 	Hash   string
 	Status string
-	Meta   interface{}
+	Meta   Meta
 }
 
 func (n Notarization) String() string {

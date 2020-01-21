@@ -71,7 +71,7 @@ func (n *dockerNotary) ListNotarizedImages(query string) ([]NotarizedImage, erro
 }
 
 func (n *dockerNotary) Notarize(hash string, status string) (*notary.Notarization, error) {
-	notarization, err := n.notary.Notarize(hash, status)
+	notarization, err := n.notary.Notarize(hash, status, nil)
 	if err != nil {
 		return nil, err
 	}

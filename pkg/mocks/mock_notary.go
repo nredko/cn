@@ -48,18 +48,18 @@ func (mr *MockNotaryMockRecorder) Start() *gomock.Call {
 }
 
 // Notarize mocks base method
-func (m *MockNotary) Notarize(hash, status string) (*notary.Notarization, error) {
+func (m *MockNotary) Notarize(hash, status string, meta notary.Meta) (*notary.Notarization, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Notarize", hash, status)
+	ret := m.ctrl.Call(m, "Notarize", hash, status, meta)
 	ret0, _ := ret[0].(*notary.Notarization)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Notarize indicates an expected call of Notarize
-func (mr *MockNotaryMockRecorder) Notarize(hash, status interface{}) *gomock.Call {
+func (mr *MockNotaryMockRecorder) Notarize(hash, status, meta interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Notarize", reflect.TypeOf((*MockNotary)(nil).Notarize), hash, status)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Notarize", reflect.TypeOf((*MockNotary)(nil).Notarize), hash, status, meta)
 }
 
 // Authenticate mocks base method

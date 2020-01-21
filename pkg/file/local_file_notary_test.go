@@ -45,7 +45,7 @@ func TestNotarize(t *testing.T) {
 		notary: mockNotary,
 	}
 	mockNotary.EXPECT().
-		Notarize(expectedHash, constants.Notarized).
+		Notarize(expectedHash, constants.Notarized, nil).
 		Return(&notary.Notarization{
 			Hash:      expectedHash,
 			Status:    constants.Notarized,
@@ -56,7 +56,7 @@ func TestNotarize(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, notarization.Status, constants.Notarized)
 	assert.Equal(t, notarization.Hash, expectedHash)
-	assert.Equal(t, notarization.StoreMeta.(map[string]interface{})["index"], expectedIndex)
+	assert.Equal(t, notarization.StoreMeta["index"], expectedIndex)
 }
 
 func TestAuthenticate(t *testing.T) {
@@ -79,7 +79,7 @@ func TestAuthenticate(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, notarization.Status, constants.Notarized)
 	assert.Equal(t, notarization.Hash, expectedHash)
-	assert.Equal(t, notarization.StoreMeta.(map[string]interface{})["index"], expectedIndex)
+	assert.Equal(t, notarization.StoreMeta["index"], expectedIndex)
 }
 
 func TestHistory(t *testing.T) {
@@ -103,5 +103,5 @@ func TestHistory(t *testing.T) {
 	assert.Len(t, history, 1)
 	assert.Equal(t, history[0].Status, constants.Notarized)
 	assert.Equal(t, history[0].Hash, expectedHash)
-	assert.Equal(t, history[0].StoreMeta.(map[string]interface{})["index"], expectedIndex)
+	assert.Equal(t, history[0].StoreMeta["index"], expectedIndex)
 }

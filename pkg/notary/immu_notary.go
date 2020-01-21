@@ -110,7 +110,7 @@ func (r *immuNotary) AuthenticateBatch(hashes []string) ([]Notarization, error) 
 	return notarizations, nil
 }
 
-func (r *immuNotary) Notarize(hash string, status string) (*Notarization, error) {
+func (r *immuNotary) Notarize(hash string, status string, meta Meta) (*Notarization, error) {
 	key := bytes.NewReader([]byte(hash))
 	value, err := json.Marshal(&storedNotarization{
 		Hash:   hash,
@@ -127,13 +127,11 @@ func (r *immuNotary) Notarize(hash string, status string) (*Notarization, error)
 	return &Notarization{
 		Hash:      hash,
 		Status:    status,
-		Meta:      nil,
+		Meta:      meta,
 		StoreMeta: NewStoreMeta(response.Index),
 	}, nil
 }
 
-func NewStoreMeta(index uint64) map[string]interface{} {
-	storeMeta := map[string]interface{}{}
-	storeMeta["index"] = index
-	return storeMeta
+func NewStoreMeta(index uint64) StoreMeta {
+	return StoreMeta{"index": index}
 }
