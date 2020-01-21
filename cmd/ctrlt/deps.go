@@ -5,9 +5,7 @@ import (
 
 	"github.com/codenotary/immudb/pkg/client"
 
-	"github.com/codenotary/ctrlt/pkg/api"
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
 	"github.com/codenotary/ctrlt/pkg/logger"
@@ -42,18 +40,6 @@ var _ = (func() interface{} {
 			Name: DockerClient,
 			Maker: func() (interface{}, error) {
 				return docker.NewNativeClient()
-			},
-		},
-		di.Entry{
-			Name: ContainerNotary,
-			Maker: func() (interface{}, error) {
-				return container.NewDockerNotary()
-			},
-		},
-		di.Entry{
-			Name: ApiServer,
-			Maker: func() (interface{}, error) {
-				return api.NewApiServer()
 			},
 		},
 		di.Entry{

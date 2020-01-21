@@ -27,7 +27,6 @@ func NewCnCommand() *cobra.Command {
 		NewNotarizeCmd(&output),
 		NewUntrustCmd(&output),
 		NewVerifyCmd(&output),
-		NewListCmd(&output),
 		NewHistoryCmd(&output))
 	return cmd
 }

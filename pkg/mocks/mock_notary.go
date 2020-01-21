@@ -6,6 +6,7 @@ package mocks
 
 import (
 	notary "github.com/codenotary/ctrlt/pkg/notary"
+	object "github.com/codenotary/objects/pkg/object"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -48,61 +49,61 @@ func (mr *MockNotaryMockRecorder) Start() *gomock.Call {
 }
 
 // Notarize mocks base method
-func (m *MockNotary) Notarize(hash, status string, meta notary.Meta) (*notary.Notarization, error) {
+func (m *MockNotary) Notarize(object *object.Object, status string) (*notary.Notarization, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Notarize", hash, status, meta)
+	ret := m.ctrl.Call(m, "Notarize", object, status)
 	ret0, _ := ret[0].(*notary.Notarization)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Notarize indicates an expected call of Notarize
-func (mr *MockNotaryMockRecorder) Notarize(hash, status, meta interface{}) *gomock.Call {
+func (mr *MockNotaryMockRecorder) Notarize(object, status interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Notarize", reflect.TypeOf((*MockNotary)(nil).Notarize), hash, status, meta)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Notarize", reflect.TypeOf((*MockNotary)(nil).Notarize), object, status)
 }
 
 // Authenticate mocks base method
-func (m *MockNotary) Authenticate(hash string) (*notary.Notarization, error) {
+func (m *MockNotary) Authenticate(object *object.Object) (*notary.Notarization, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Authenticate", hash)
+	ret := m.ctrl.Call(m, "Authenticate", object)
 	ret0, _ := ret[0].(*notary.Notarization)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Authenticate indicates an expected call of Authenticate
-func (mr *MockNotaryMockRecorder) Authenticate(hash interface{}) *gomock.Call {
+func (mr *MockNotaryMockRecorder) Authenticate(object interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Authenticate", reflect.TypeOf((*MockNotary)(nil).Authenticate), hash)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Authenticate", reflect.TypeOf((*MockNotary)(nil).Authenticate), object)
 }
 
 // AuthenticateBatch mocks base method
-func (m *MockNotary) AuthenticateBatch(hashes []string) ([]notary.Notarization, error) {
+func (m *MockNotary) AuthenticateBatch(objects []*object.Object) ([]notary.Notarization, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AuthenticateBatch", hashes)
+	ret := m.ctrl.Call(m, "AuthenticateBatch", objects)
 	ret0, _ := ret[0].([]notary.Notarization)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // AuthenticateBatch indicates an expected call of AuthenticateBatch
-func (mr *MockNotaryMockRecorder) AuthenticateBatch(hashes interface{}) *gomock.Call {
+func (mr *MockNotaryMockRecorder) AuthenticateBatch(objects interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AuthenticateBatch", reflect.TypeOf((*MockNotary)(nil).AuthenticateBatch), hashes)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AuthenticateBatch", reflect.TypeOf((*MockNotary)(nil).AuthenticateBatch), objects)
 }
 
 // History mocks base method
-func (m *MockNotary) History(hash string) ([]*notary.Notarization, error) {
+func (m *MockNotary) History(object *object.Object) ([]*notary.Notarization, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "History", hash)
+	ret := m.ctrl.Call(m, "History", object)
 	ret0, _ := ret[0].([]*notary.Notarization)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // History indicates an expected call of History
-func (mr *MockNotaryMockRecorder) History(hash interface{}) *gomock.Call {
+func (mr *MockNotaryMockRecorder) History(object interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "History", reflect.TypeOf((*MockNotary)(nil).History), hash)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "History", reflect.TypeOf((*MockNotary)(nil).History), object)
 }

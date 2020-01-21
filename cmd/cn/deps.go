@@ -4,18 +4,19 @@ import (
 	"os"
 
 	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/objects/pkg/extractor"
+	"github.com/codenotary/objects/pkg/extractor/file"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/file"
 	"github.com/codenotary/ctrlt/pkg/logger"
 	"github.com/codenotary/ctrlt/pkg/notary"
 	"github.com/codenotary/ctrlt/pkg/printer"
 )
 
 var _ = (func() interface{} {
+	extractor.Register(file.Scheme, file.Extract)
 	di.RegisterOrPanic(
 		di.Entry{
 			Name: Logger,
@@ -42,18 +43,6 @@ var _ = (func() interface{} {
 			Name: DockerClient,
 			Maker: func() (interface{}, error) {
 				return docker.NewNativeClient()
-			},
-		},
-		di.Entry{
-			Name: ContainerNotary,
-			Maker: func() (interface{}, error) {
-				return container.NewDockerNotary()
-			},
-		},
-		di.Entry{
-			Name: FileNotary,
-			Maker: func() (interface{}, error) {
-				return file.NewLocalFileNotary()
 			},
 		},
 		di.Entry{
