@@ -8,5 +8,6 @@ const (
 	JsonPrinter  = "jsonPrinter"
 	TextPrinter  = "textPrinter"
 	YamlPrinter  = "yamlPrinter"
+	ApiServer    = "apiServer"
 	UiServer     = "uiServer"
 )
