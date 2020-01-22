@@ -3,8 +3,9 @@ package printer
 import (
 	"io"
 
+	"github.com/codenotary/di/pkg/di"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/di"
 )
 
 type Printer interface {

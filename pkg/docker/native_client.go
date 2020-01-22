@@ -8,8 +8,9 @@ import (
 
 	"github.com/codenotary/logger/pkg/logger"
 
+	"github.com/codenotary/di/pkg/di"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/di"
 )
 
 var ctx = context.Background()

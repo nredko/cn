@@ -29,6 +29,8 @@ github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghf
 github.com/cespare/xxhash/v2 v2.1.0 h1:yTUvW7Vhb89inJ+8irsUqiWjh8iT6sQPZiQzI6ReGkA=
 github.com/cespare/xxhash/v2 v2.1.0/go.mod h1:dgIUBU3pDso/gPgZ1osOZ0iQf77oPR28Tjxl5dIMyVM=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
+github.com/codenotary/di v0.0.0-20200122114816-68f6a87f646d h1:vGq/kZG10IEUR7/QXMT+zp7RjarJNoZpplhF+bk0RVw=
+github.com/codenotary/di v0.0.0-20200122114816-68f6a87f646d/go.mod h1:rUGPjyz7VCrNr73UUnoGtCVn60Cf49u/XkMQ4zUGRGc=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6 h1:GuGLsxV1HD/D/YkM9+LmBt5DnD0UQsqUC4OQ1qeQDp8=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
 github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4 h1:8pPl9hJDBue3pA6ye8poQqReXe8QAkY5BuGkFFSBWqo=

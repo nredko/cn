@@ -10,8 +10,9 @@ import (
 
 	"github.com/codenotary/logger/pkg/logger"
 
+	"github.com/codenotary/di/pkg/di"
+
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
 	"github.com/codenotary/ctrlt/pkg/notary"
 	"github.com/codenotary/ctrlt/pkg/printer"

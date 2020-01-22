@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
+	github.com/codenotary/di v0.0.0-20200122114816-68f6a87f646d
 	github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6
 	github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4
 	github.com/codenotary/objects v0.0.0-20200122110123-46d913592f5d
