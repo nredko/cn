@@ -4,15 +4,14 @@ import (
 	"os"
 
 	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/logger/pkg/logger"
 
-	"github.com/codenotary/ctrlt/pkg/api"
+	"github.com/codenotary/di/pkg/di"
+
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/logger"
 	"github.com/codenotary/ctrlt/pkg/notary"
-	"github.com/codenotary/ctrlt/pkg/ui"
+	"github.com/codenotary/ctrlt/pkg/printer"
 )
 
 var _ = (func() interface{} {
@@ -45,21 +44,21 @@ var _ = (func() interface{} {
 			},
 		},
 		di.Entry{
-			Name: ContainerNotary,
+			Name: TextPrinter,
 			Maker: func() (interface{}, error) {
-				return container.NewDockerNotary()
+				return printer.NewTextPrinter()
 			},
 		},
 		di.Entry{
-			Name: ApiServer,
+			Name: JsonPrinter,
 			Maker: func() (interface{}, error) {
-				return api.NewApiServer()
+				return printer.NewJsonPrinter()
 			},
 		},
 		di.Entry{
-			Name: UiServer,
+			Name: YamlPrinter,
 			Maker: func() (interface{}, error) {
-				return ui.NewUiServer()
+				return printer.NewYamlPrinter()
 			},
 		})
 	return nil

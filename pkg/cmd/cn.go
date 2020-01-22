@@ -3,7 +3,8 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/codenotary/ctrlt/pkg/di"
+	"github.com/codenotary/di/pkg/di"
+
 	"github.com/codenotary/ctrlt/pkg/util"
 )
 
@@ -27,7 +28,6 @@ func NewCnCommand() *cobra.Command {
 		NewNotarizeCmd(&output),
 		NewUntrustCmd(&output),
 		NewVerifyCmd(&output),
-		NewListCmd(&output),
 		NewHistoryCmd(&output))
 	return cmd
 }

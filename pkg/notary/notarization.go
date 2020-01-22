@@ -3,22 +3,31 @@ package notary
 import (
 	"fmt"
 
+	"github.com/codenotary/objects/pkg/object"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
 )
 
+type StoreMeta map[string]interface{}
+
 type Notarization struct {
-	Hash   string
-	Status string
-	Index  uint64
+	Status    string
+	Object    *object.Object
+	StoreMeta StoreMeta
 }
 
 var UnknownNotarization = &Notarization{
-	Hash:   "",
-	Status: constants.Unknown,
-	Index:  0,
+	Status:    constants.Unknown,
+	Object:    nil,
+	StoreMeta: nil,
+}
+
+type storedNotarization struct {
+	Status string
+	Object *object.Object
 }
 
 func (n Notarization) String() string {
-	return fmt.Sprintf("Hash:%s Status:%s Index:%d",
-		n.Hash, n.Status, n.Index)
+	return fmt.Sprintf("Status:%s Object:%+v StoreMeta:%+v",
+		n.Status, n.Object, n.StoreMeta)
 }

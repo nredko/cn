@@ -5,14 +5,15 @@ import (
 
 	"github.com/codenotary/immudb/pkg/client"
 
+	"github.com/codenotary/logger/pkg/logger"
+
+	"github.com/codenotary/di/pkg/di"
+
+	"github.com/codenotary/ctrlt/pkg/api"
 	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/container"
-	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/file"
-	"github.com/codenotary/ctrlt/pkg/logger"
 	"github.com/codenotary/ctrlt/pkg/notary"
-	"github.com/codenotary/ctrlt/pkg/printer"
+	"github.com/codenotary/ctrlt/pkg/ui"
 )
 
 var _ = (func() interface{} {
@@ -45,33 +46,15 @@ var _ = (func() interface{} {
 			},
 		},
 		di.Entry{
-			Name: ContainerNotary,
+			Name: ApiServer,
 			Maker: func() (interface{}, error) {
-				return container.NewDockerNotary()
+				return api.NewApiServer()
 			},
 		},
 		di.Entry{
-			Name: FileNotary,
+			Name: UiServer,
 			Maker: func() (interface{}, error) {
-				return file.NewLocalFileNotary()
-			},
-		},
-		di.Entry{
-			Name: TextPrinter,
-			Maker: func() (interface{}, error) {
-				return printer.NewTextPrinter()
-			},
-		},
-		di.Entry{
-			Name: JsonPrinter,
-			Maker: func() (interface{}, error) {
-				return printer.NewJsonPrinter()
-			},
-		},
-		di.Entry{
-			Name: YamlPrinter,
-			Maker: func() (interface{}, error) {
-				return printer.NewYamlPrinter()
+				return ui.NewUiServer()
 			},
 		})
 	return nil

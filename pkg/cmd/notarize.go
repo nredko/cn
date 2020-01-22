@@ -3,9 +3,13 @@ package cmd
 import (
 	"os"
 
+	"github.com/codenotary/objects/pkg/extractor"
 	"github.com/spf13/cobra"
 
+	"github.com/codenotary/di/pkg/di"
+
 	. "github.com/codenotary/ctrlt/pkg/constants"
+	"github.com/codenotary/ctrlt/pkg/notary"
 	"github.com/codenotary/ctrlt/pkg/printer"
 	"github.com/codenotary/ctrlt/pkg/util"
 )
@@ -13,11 +17,16 @@ import (
 func NewNotarizeCmd(output *string) *cobra.Command {
 	return &cobra.Command{
 		Use:     "notarize",
-		Example: "cn notarize file://document.txt, cn notarize docker://alpine",
+		Example: "cn notarize file://document.txt",
 		Aliases: []string{"n"},
 		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			result, err := util.NotarizeSchema(args[0], Notarized)
+			n := di.LookupOrPanic(Notary).(notary.Notary)
+			o, err := extractor.Extract(args[0])
+			if err != nil {
+				util.Die("notarization failed:", err)
+			}
+			result, err := n.Notarize(o, Notarized)
 			if err != nil {
 				util.Die("notarization failed:", err)
 			}

@@ -2,15 +2,17 @@ package notary
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
 
-	"github.com/codenotary/immudb/pkg/api/schema"
-
 	"github.com/codenotary/immudb/pkg/client"
+	"github.com/codenotary/objects/pkg/object"
+
+	"github.com/codenotary/logger/pkg/logger"
+
+	"github.com/codenotary/di/pkg/di"
 
 	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/di"
-	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
 type immuNotary struct {
@@ -41,81 +43,94 @@ func (r *immuNotary) Stop() error {
 	return r.immuClient.Disconnect()
 }
 
-func (r *immuNotary) Authenticate(hash string) (*Notarization, error) {
-	response, err := r.immuClient.Get(bytes.NewReader([]byte(hash)))
+func (r *immuNotary) Authenticate(object *object.Object) (*Notarization, error) {
+	response, err := r.immuClient.Get(bytes.NewReader([]byte(object.Digest.Encoded())))
 	if err != nil {
 		return UnknownNotarization, nil
 	}
-	status := string(response.Value)
-	r.logger.Debugf("get %s - %s @ %d", hash, response.Index, status)
+	n := storedNotarization{}
+	if err = json.Unmarshal(response.Value, &n); err != nil {
+		return nil, err
+	}
+	r.logger.Debugf("get %s - %d @ %+v", object.Digest.Encoded(), response.Index, n)
 	return &Notarization{
-		Hash:   hash,
-		Status: status,
-		Index:  response.Index,
+		Status:    n.Status,
+		Object:    n.Object,
+		StoreMeta: NewStoreMeta(response.Index),
 	}, nil
 }
 
-func (r *immuNotary) History(hash string) ([]*Notarization, error) {
-	response, err := r.immuClient.History(bytes.NewReader([]byte(hash)))
+func (r *immuNotary) History(object *object.Object) ([]*Notarization, error) {
+	response, err := r.immuClient.History(bytes.NewReader([]byte(object.Digest.Encoded())))
 	if err != nil {
 		return nil, err
 	}
-	r.logger.Debugf("history %s - %v", hash, response.Items)
+	r.logger.Debugf("history %s - %+v", object.Digest.Encoded(), response.Items)
 	var notarizations []*Notarization
 	for _, item := range response.Items {
-		status := string(item.Value)
+		n := storedNotarization{}
+		if err = json.Unmarshal(item.Value, &n); err != nil {
+			return nil, err
+		}
 		notarizations = append(notarizations, &Notarization{
-			Hash:   hash,
-			Status: status,
-			Index:  item.Index,
+			Status:    n.Status,
+			Object:    n.Object,
+			StoreMeta: NewStoreMeta(item.Index),
 		})
 	}
 	return notarizations, nil
 }
 
-func (r *immuNotary) AuthenticateBatch(hashes []string) ([]Notarization, error) {
+func (r *immuNotary) AuthenticateBatch(objects []*object.Object) ([]Notarization, error) {
 	var readers []io.Reader
-	for _, hash := range hashes {
-		readers = append(readers, bytes.NewReader([]byte(hash)))
+	for _, o := range objects {
+		readers = append(readers, bytes.NewReader([]byte(o.Digest.Encoded())))
 	}
 	batchResponse, err := r.immuClient.GetBatch(readers)
 	if err != nil {
 		return nil, err
 	}
-	itemByHash := make(map[string]*schema.Item, len(hashes))
-	for _, item := range batchResponse.Items {
-		hash := string(item.Key)
-		itemByHash[hash] = item
-	}
-
 	var notarizations []Notarization
-	for _, hash := range hashes {
-		if item, ok := itemByHash[hash]; ok {
-			notarizations = append(notarizations, Notarization{
-				Hash:   hash,
-				Status: string(item.Value),
-				Index:  item.Index,
-			})
-		} else {
+	for _, response := range batchResponse.Items {
+		if len(response.Value) == 0 {
 			notarizations = append(notarizations, *UnknownNotarization)
+		} else {
+			n := storedNotarization{}
+			if err = json.Unmarshal(response.Value, &n); err != nil {
+				return nil, err
+			}
+			notarizations = append(notarizations, Notarization{
+				Status:    n.Status,
+				Object:    n.Object,
+				StoreMeta: NewStoreMeta(response.Index),
+			})
 		}
 	}
-
-	r.logger.Debugf("get-batch %v - %v", hashes, notarizations)
+	r.logger.Debugf("get-batch %+v - %+v", objects, notarizations)
 	return notarizations, nil
 }
 
-func (r *immuNotary) Notarize(hash string, status string) (*Notarization, error) {
-	key := bytes.NewReader([]byte(hash))
-	value := bytes.NewReader([]byte(status))
-	response, err := r.immuClient.Set(key, value)
+func (r *immuNotary) Notarize(object *object.Object, status string) (*Notarization, error) {
+	key := bytes.NewReader([]byte(object.Digest.Encoded()))
+	value, err := json.Marshal(&storedNotarization{
+		Object: object,
+		Status: status,
+	})
 	if err != nil {
 		return nil, err
 	}
-	r.logger.Debugf("create %s - %s @ %d", hash, status, response.Index)
+	response, err := r.immuClient.Set(key, bytes.NewReader(value))
+	if err != nil {
+		return nil, err
+	}
+	r.logger.Debugf("create %s - %s @ %d", object.Digest.Encoded(), status, response.Index)
 	return &Notarization{
-		Hash:   hash,
-		Status: status,
-		Index:  response.Index,
+		Status:    status,
+		Object:    object,
+		StoreMeta: NewStoreMeta(response.Index),
 	}, nil
+}
+
+func NewStoreMeta(index uint64) StoreMeta {
+	return StoreMeta{"index": index}
 }

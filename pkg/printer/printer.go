@@ -3,8 +3,9 @@ package printer
 import (
 	"io"
 
+	"github.com/codenotary/di/pkg/di"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/di"
 )
 
 type Printer interface {
@@ -24,7 +25,7 @@ func Print(format string, writer io.Writer, data interface{}) error {
 		return constants.ErrNoSuchPrinter
 	}
 	instance, err := di.Lookup(instanceName)
-	if err == constants.ErrNoSuchEntry {
+	if err == di.ErrNoSuchEntry {
 		return constants.ErrNoSuchPrinter
 	} else if err != nil {
 		return err
