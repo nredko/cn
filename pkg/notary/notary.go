@@ -8,6 +8,7 @@ import (
 
 type Notary interface {
 	Start() error
+	Stop() error
 	Notarize(object *object.Object, status string) (*Notarization, error)
 	Authenticate(object *object.Object) (*Notarization, error)
 	AuthenticateBatch(objects []*object.Object) ([]Notarization, error)

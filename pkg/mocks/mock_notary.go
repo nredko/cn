@@ -48,6 +48,20 @@ func (mr *MockNotaryMockRecorder) Start() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Start", reflect.TypeOf((*MockNotary)(nil).Start))
 }
 
+// Stop mocks base method
+func (m *MockNotary) Stop() error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Stop")
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Stop indicates an expected call of Stop
+func (mr *MockNotaryMockRecorder) Stop() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Stop", reflect.TypeOf((*MockNotary)(nil).Stop))
+}
+
 // Notarize mocks base method
 func (m *MockNotary) Notarize(object *object.Object, status string) (*notary.Notarization, error) {
 	m.ctrl.T.Helper()
