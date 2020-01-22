@@ -41,4 +41,4 @@ clean:
 	$(GO) clean ./...
 	$(GO) clean -testcache
 
-.PHONY: all cnt cn-static test integration-test get vendor tidy generate run clean
+.PHONY: all cn cn-static test integration-test get vendor tidy generate run clean
