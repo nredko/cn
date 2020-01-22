@@ -8,10 +8,10 @@ import (
 
 	"github.com/codenotary/di/pkg/di"
 
-	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/notary"
-	"github.com/codenotary/ctrlt/pkg/printer"
-	"github.com/codenotary/ctrlt/pkg/util"
+	"github.com/codenotary/cn/pkg/constants"
+	"github.com/codenotary/cn/pkg/notary"
+	"github.com/codenotary/cn/pkg/printer"
+	"github.com/codenotary/cn/pkg/util"
 )
 
 func NewHistoryCmd(output *string) *cobra.Command {

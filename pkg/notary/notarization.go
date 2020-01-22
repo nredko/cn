@@ -5,7 +5,7 @@ import (
 
 	"github.com/codenotary/objects/pkg/object"
 
-	"github.com/codenotary/ctrlt/pkg/constants"
+	"github.com/codenotary/cn/pkg/constants"
 )
 
 type StoreMeta map[string]interface{}

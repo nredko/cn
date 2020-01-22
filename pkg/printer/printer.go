@@ -5,7 +5,7 @@ import (
 
 	"github.com/codenotary/di/pkg/di"
 
-	"github.com/codenotary/ctrlt/pkg/constants"
+	"github.com/codenotary/cn/pkg/constants"
 )
 
 type Printer interface {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/codenotary/di/pkg/di"
 
-	"github.com/codenotary/ctrlt/pkg/util"
+	"github.com/codenotary/cn/pkg/util"
 )
 
 func NewCnCommand() *cobra.Command {

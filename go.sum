@@ -35,8 +35,6 @@ github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6 h1:GuGLsxV1HD/D/
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
 github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4 h1:8pPl9hJDBue3pA6ye8poQqReXe8QAkY5BuGkFFSBWqo=
 github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4/go.mod h1:IfMHAutRvQxpCi6bQsxmTJ8ASLap81vk7U8GGEv6vzY=
-github.com/codenotary/objects v0.0.0-20200122110123-46d913592f5d h1:94OR0PGMAKX7jb6NLj5ZLtxsisKQMveu4vb6m+sf5AI=
-github.com/codenotary/objects v0.0.0-20200122110123-46d913592f5d/go.mod h1:YZZiBuph+BBPJVbpMUejtIzywRJ85OUiG8CxnWe5wWM=
 github.com/codenotary/objects v0.0.0-20200122120343-e49b93df72a3 h1:WDkAvMU5214FembhYwGqF5O7+xCNJbOQWYkjgi0ERYc=
 github.com/codenotary/objects v0.0.0-20200122120343-e49b93df72a3/go.mod h1:8cAfGYGadauHW2nbNrDBXPTOw4YQ0+3ccN4E0L1Zi80=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
@@ -95,6 +93,7 @@ github.com/golang/snappy v0.0.1/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEW
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
 github.com/google/go-cmp v0.3.0 h1:crn/baboCvb5fXaQ0IJ1SGTsTVrWpDsCWC8EGETZijY=
 github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
+github.com/google/go-cmp v0.3.1 h1:Xye71clBPdm5HgqGwUkwhbynsUJZhDbS20FvLhQ2izg=
 github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/h2non/filetype v1.0.10 h1:z+SJfnL6thYJ9kAST+6nPRXp1lMxnOVbMZHNYHMar0s=

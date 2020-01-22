@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	notary "github.com/codenotary/ctrlt/pkg/notary"
+	notary "github.com/codenotary/cn/pkg/notary"
 	object "github.com/codenotary/objects/pkg/object"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"

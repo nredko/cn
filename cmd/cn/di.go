@@ -8,10 +8,9 @@ import (
 
 	"github.com/codenotary/di/pkg/di"
 
-	. "github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/notary"
-	"github.com/codenotary/ctrlt/pkg/printer"
+	. "github.com/codenotary/cn/pkg/constants"
+	"github.com/codenotary/cn/pkg/notary"
+	"github.com/codenotary/cn/pkg/printer"
 )
 
 var _ = (func() interface{} {
@@ -19,7 +18,7 @@ var _ = (func() interface{} {
 		di.Entry{
 			Name: Logger,
 			Maker: func() (interface{}, error) {
-				return logger.NewSimpleLogger("ctrl-t", os.Stderr), nil
+				return logger.NewSimpleLogger("cn", os.Stderr), nil
 			},
 		},
 		di.Entry{
@@ -37,12 +36,6 @@ var _ = (func() interface{} {
 			Maker: func() (interface{}, error) {
 				return notary.NewImmuNotary()
 			}},
-		di.Entry{
-			Name: DockerClient,
-			Maker: func() (interface{}, error) {
-				return docker.NewNativeClient()
-			},
-		},
 		di.Entry{
 			Name: TextPrinter,
 			Maker: func() (interface{}, error) {

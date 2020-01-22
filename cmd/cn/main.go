@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/codenotary/ctrlt/pkg/cmd"
-	"github.com/codenotary/ctrlt/pkg/util"
+	"github.com/codenotary/cn/pkg/cmd"
+	"github.com/codenotary/cn/pkg/util"
 )
 
 func main() {

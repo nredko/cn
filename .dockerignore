@@ -9,7 +9,6 @@
 .gitignore
 .idea/
 /cn
-/ctrlt
 /vendor
 docker-compose.yml
 Dockerfile
