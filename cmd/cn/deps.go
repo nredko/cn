@@ -6,6 +6,7 @@ import (
 	"github.com/codenotary/immudb/pkg/client"
 	"github.com/codenotary/objects/pkg/extractor"
 	"github.com/codenotary/objects/pkg/extractor/file"
+	"github.com/codenotary/objects/pkg/extractor/git"
 
 	. "github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
@@ -17,6 +18,7 @@ import (
 
 var _ = (func() interface{} {
 	extractor.Register(file.Scheme, file.Extract)
+	extractor.Register(git.Scheme, git.Extract)
 	di.RegisterOrPanic(
 		di.Entry{
 			Name: Logger,
