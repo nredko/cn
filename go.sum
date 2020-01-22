@@ -31,12 +31,18 @@ github.com/cespare/xxhash/v2 v2.1.0/go.mod h1:dgIUBU3pDso/gPgZ1osOZ0iQf77oPR28Tj
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/codenotary/di v0.0.0-20200122114816-68f6a87f646d h1:vGq/kZG10IEUR7/QXMT+zp7RjarJNoZpplhF+bk0RVw=
 github.com/codenotary/di v0.0.0-20200122114816-68f6a87f646d/go.mod h1:rUGPjyz7VCrNr73UUnoGtCVn60Cf49u/XkMQ4zUGRGc=
+github.com/codenotary/di v0.0.0-20200122135016-04aafe9eca6a h1:B+XWLXIGZpTxlEqpt8gC0b+PXwowRpaX0N9As3e9zBw=
+github.com/codenotary/di v0.0.0-20200122135016-04aafe9eca6a/go.mod h1:rUGPjyz7VCrNr73UUnoGtCVn60Cf49u/XkMQ4zUGRGc=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6 h1:GuGLsxV1HD/D/YkM9+LmBt5DnD0UQsqUC4OQ1qeQDp8=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
 github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4 h1:8pPl9hJDBue3pA6ye8poQqReXe8QAkY5BuGkFFSBWqo=
 github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4/go.mod h1:IfMHAutRvQxpCi6bQsxmTJ8ASLap81vk7U8GGEv6vzY=
+github.com/codenotary/logger v0.0.0-20200122134836-347eccd98889 h1:4hal3otwfeSW732oPp/RLzCYh+gmuSiiYbDQicBVLK0=
+github.com/codenotary/logger v0.0.0-20200122134836-347eccd98889/go.mod h1:pGGk7wvzWfz3LtY25SohCzNtrSHL9F+y51Z6nY48Www=
 github.com/codenotary/objects v0.0.0-20200122120343-e49b93df72a3 h1:WDkAvMU5214FembhYwGqF5O7+xCNJbOQWYkjgi0ERYc=
 github.com/codenotary/objects v0.0.0-20200122120343-e49b93df72a3/go.mod h1:8cAfGYGadauHW2nbNrDBXPTOw4YQ0+3ccN4E0L1Zi80=
+github.com/codenotary/objects v0.0.0-20200122150531-ac0742e7ab6c h1:FRIAvYWkGFPBf0Fi/52HRkktE5TEVBg5DezgIKt31mI=
+github.com/codenotary/objects v0.0.0-20200122150531-ac0742e7ab6c/go.mod h1:8cAfGYGadauHW2nbNrDBXPTOw4YQ0+3ccN4E0L1Zi80=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-etcd v2.0.0+incompatible/go.mod h1:Jez6KQU2B/sWsbdaef3ED8NzMklzPG4d5KIOhIy30Tk=
 github.com/coreos/go-semver v0.2.0/go.mod h1:nnelYz7RCh+5ahJtPPxZlU+153eP4D4r3EedlOD2RNk=
@@ -231,6 +237,8 @@ golang.org/x/sys v0.0.0-20191010194322-b09406accb47/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20191120155948-bd437916bb0e/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200121082415-34d275377bf9 h1:N19i1HjUnR7TF7rMt8O4p3dLvqvmYyzB6ifMFmrbY50=
 golang.org/x/sys v0.0.0-20200121082415-34d275377bf9/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20200122134326-e047566fdf82 h1:ywK/j/KkyTHcdyYSZNXGjMwgmDSfjglYZ3vStQ/gSCU=
+golang.org/x/sys v0.0.0-20200122134326-e047566fdf82/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.2 h1:tW2bmiBqwgJj/UpqtC8EpXEZVYOwU0yG4iWbprSVAcs=

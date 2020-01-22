@@ -11,5 +11,6 @@ var _ = (func() interface{} {
 	extractor.Register(file.Scheme, file.Extract)
 	extractor.Register(git.Scheme, git.Extract)
 	extractor.Register(docker.Scheme, docker.Extract)
+	extractor.SetFallbackScheme(file.Scheme)
 	return nil
 })()
