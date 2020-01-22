@@ -31,8 +31,8 @@ github.com/cespare/xxhash/v2 v2.1.0/go.mod h1:dgIUBU3pDso/gPgZ1osOZ0iQf77oPR28Tj
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6 h1:GuGLsxV1HD/D/YkM9+LmBt5DnD0UQsqUC4OQ1qeQDp8=
 github.com/codenotary/immudb v0.0.0-20200121142517-21b2634bd8b6/go.mod h1:Cst3dmYJ/PmMLl3+Bu79YXP5U8jRiJp2NFcWzaPgGHI=
-github.com/codenotary/objects v0.0.0-20200122085207-ae6fae45bd69 h1:jlR66GZHx8/E/cZ7sBr1/2lkdxO/jQkWnius+6hKC5A=
-github.com/codenotary/objects v0.0.0-20200122085207-ae6fae45bd69/go.mod h1:YZZiBuph+BBPJVbpMUejtIzywRJ85OUiG8CxnWe5wWM=
+github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4 h1:8pPl9hJDBue3pA6ye8poQqReXe8QAkY5BuGkFFSBWqo=
+github.com/codenotary/logger v0.0.0-20200122113949-8024171211a4/go.mod h1:IfMHAutRvQxpCi6bQsxmTJ8ASLap81vk7U8GGEv6vzY=
 github.com/codenotary/objects v0.0.0-20200122110123-46d913592f5d h1:94OR0PGMAKX7jb6NLj5ZLtxsisKQMveu4vb6m+sf5AI=
 github.com/codenotary/objects v0.0.0-20200122110123-46d913592f5d/go.mod h1:YZZiBuph+BBPJVbpMUejtIzywRJ85OUiG8CxnWe5wWM=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=

@@ -5,11 +5,12 @@ import (
 
 	"github.com/codenotary/immudb/pkg/client"
 
+	"github.com/codenotary/logger/pkg/logger"
+
 	"github.com/codenotary/ctrlt/pkg/api"
 	. "github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
 	"github.com/codenotary/ctrlt/pkg/docker"
-	"github.com/codenotary/ctrlt/pkg/logger"
 	"github.com/codenotary/ctrlt/pkg/notary"
 	"github.com/codenotary/ctrlt/pkg/ui"
 )

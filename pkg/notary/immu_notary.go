@@ -8,9 +8,10 @@ import (
 	"github.com/codenotary/immudb/pkg/client"
 	"github.com/codenotary/objects/pkg/object"
 
+	"github.com/codenotary/logger/pkg/logger"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
-	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
 type immuNotary struct {

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/codenotary/logger/pkg/logger"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
-	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
 type apiServer struct {

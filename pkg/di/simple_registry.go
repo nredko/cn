@@ -5,8 +5,9 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/codenotary/logger/pkg/logger"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
-	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
 type simpleRegistry struct {

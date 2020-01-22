@@ -6,9 +6,10 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 
+	"github.com/codenotary/logger/pkg/logger"
+
 	"github.com/codenotary/ctrlt/pkg/constants"
 	"github.com/codenotary/ctrlt/pkg/di"
-	"github.com/codenotary/ctrlt/pkg/logger"
 )
 
 var ctx = context.Background()
