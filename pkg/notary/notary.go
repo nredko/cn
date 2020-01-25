@@ -4,8 +4,6 @@ import (
 	"github.com/codenotary/objects/pkg/object"
 )
 
-//go:generate mockgen -source=../notary/notary.go -destination=../mocks/mock_notary.go -package=mocks
-
 type Notary interface {
 	Start() error
 	Stop() error
