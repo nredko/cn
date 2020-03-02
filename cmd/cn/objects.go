@@ -6,9 +6,11 @@ import (
 	"github.com/codenotary/objects/pkg/extractor/docker"
 	"github.com/codenotary/objects/pkg/extractor/file"
 	"github.com/codenotary/objects/pkg/extractor/git"
+	"github.com/codenotary/objects/pkg/extractor/stdin"
 )
 
 var _ = (func() interface{} {
+	extractor.Register(stdin.Scheme, stdin.Extract)
 	extractor.Register(dir.Scheme, dir.Extract)
 	extractor.Register(file.Scheme, file.Extract)
 	extractor.Register(git.Scheme, git.Extract)
